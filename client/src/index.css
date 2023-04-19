@@ -1,0 +1,26 @@
+body {
+	margin: 1%;
+	display: flex;
+	min-width: 320px;
+	min-height: 100vh;
+	overflow-y: scroll;
+}
+#root {
+	background-color: #e6e6e6;
+	width: 100%;
+	height: 100%;
+}
+
+.navbar {
+	background-color: #dedede;
+	width: 100vw;
+	height: 12vh;
+}
+
+.container {
+	margin-left: 0 !important;
+}
+
+section {
+	padding-top: 12vh;
+}

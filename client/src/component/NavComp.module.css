@@ -1,0 +1,45 @@
+.navbarTitle_h {
+	font-size: 4vw;
+	margin-top: auto;
+	margin-bottom: auto;
+	font-family: 'Amatic SC';
+	font-style: normal;
+	display: flex;
+	color: #000000;
+	align-items: center;
+	text-align: center;
+}
+
+.navbarTitle_v {
+	font-size: 5vh;
+	margin-top: auto;
+	margin-bottom: auto;
+	font-family: 'Amatic SC';
+	font-style: normal;
+	display: flex;
+	color: #000000;
+	align-items: center;
+	text-align: center;
+}
+
+.link_h {
+	font-family: Public Sans !important;
+	font-size: 1.6vw;
+	margin-top: auto;
+	margin-bottom: auto;
+	font-style: normal;
+	display: flex;
+	align-items: center;
+	text-align: center;
+}
+
+.link_v {
+	font-family: Public Sans;
+	font-size: 2.4vh;
+	margin-top: auto;
+	margin-bottom: auto;
+	font-style: normal;
+	display: flex;
+	align-items: center;
+	text-align: center;
+}

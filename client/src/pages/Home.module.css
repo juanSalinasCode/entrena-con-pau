@@ -1,0 +1,54 @@
+.title_h {
+	font-family: Public Sans;
+	font-size: 1.8vw;
+	padding-top: 2%;
+}
+.title_v {
+	font-family: Public Sans;
+	font-size: 3.6vh;
+	padding-top: 2%;
+}
+
+.clasesTopDiv {
+	display: flex;
+	align-items: center;
+	margin-left: 4vh;
+}
+
+.searchDiv {
+	font-family: Public Sans;
+	font-size: 1.5vw;
+	color: #bbbbbb;
+	padding-top: 2%;
+	margin-left: auto;
+	width: 10vw;
+	height: 15vh;
+}
+
+.searchBox {
+	text-align: center;
+	background-color: #e9d5e3;
+	border-radius: 5vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 50%;
+}
+
+.searchText {
+	margin-top: 15%;
+	margin-left: 25%;
+}
+
+.provisionalBackround {
+	height: 88vh;
+	width: 100vw;
+}
+
+.spinerLoading {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: #ba7ea9 !important;
+}

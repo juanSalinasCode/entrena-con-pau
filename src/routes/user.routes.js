@@ -1,10 +1,10 @@
-import userLoginController from '#Controllers/user-login.controller.js';
-import userProfileController from '#Controllers/user-profile.controller.js';
-import userRegisterController from '#Controllers/user-register.controller.js';
-import userUnregisterController from '#Controllers/user-unregister.controller.js';
-import userUpdateDataController from '#Controllers/user-update-data.controller.js';
-import userUpdateEmailController from '#Controllers/user-update-email.controller.js';
-import userUpdatePasswordController from '#Controllers/user-update-password.controller.js';
+import userLoginController from '#Controllers/user/user-login.controller.js';
+import userProfileController from '#Controllers/user/user-profile.controller.js';
+import userRegisterController from '#Controllers/user/user-register.controller.js';
+import userUnregisterController from '#Controllers/user/user-unregister.controller.js';
+import userUpdateDataController from '#Controllers/user/user-update-data.controller.js';
+import userUpdateEmailController from '#Controllers/user/user-update-email.controller.js';
+import userUpdatePasswordController from '#Controllers/user/user-update-password.controller.js';
 import userJWTDTO from '#Dto/user-jwt.dto.js';
 import userLoginDTO from '#Dto/user-login.dto.js';
 import userRegisterDTO from '#Dto/user-register.dto.js';
@@ -19,29 +19,19 @@ const userRouter = Router();
 userRouter.post('/register', userRegisterDTO, userRegisterController);
 userRouter.post('/login', userLoginDTO, userLoginController);
 userRouter.get('/profile', userJWTDTO, userProfileController);
+userRouter.patch('/update-data', userJWTDTO, userUpdateDataDTO, userUpdateDataController);
 userRouter.patch(
-    '/update-data',
-    userJWTDTO,
-    userUpdateDataDTO,
-    userUpdateDataController
-);
-userRouter.patch(
-    '/update-email',
-    userJWTDTO,
-    userUpdateEmailDTO,
-    userUpdateEmailController
+	'/update-email',
+	userJWTDTO,
+	userUpdateEmailDTO,
+	userUpdateEmailController,
 );
 userRouter.patch(
-    '/update-password',
-    userJWTDTO,
-    userUpdatePasswordDTO,
-    userUpdatePasswordController
+	'/update-password',
+	userJWTDTO,
+	userUpdatePasswordDTO,
+	userUpdatePasswordController,
 );
-userRouter.delete(
-    '/unregister',
-    userJWTDTO,
-    userUnregisterDTO,
-    userUnregisterController
-);
+userRouter.delete('/unregister', userJWTDTO, userUnregisterDTO, userUnregisterController);
 
 export default userRouter;

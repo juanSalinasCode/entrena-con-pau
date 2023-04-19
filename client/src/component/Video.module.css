@@ -1,0 +1,13 @@
+.videoCenter {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+}
+
+.title {
+	font-family: Public Sans;
+	font-size: 2vw;
+	padding-top: 2%;
+	margin-left: 11%;
+}

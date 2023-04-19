@@ -4,20 +4,18 @@ import Ajv from 'ajv';
 import addErrors from 'ajv-errors';
 
 const UnregisterDTOSchema = Type.Object(
-    {
-        password: passwordDTOSchema,
-    },
-    {
-        additionalProperties: false,
-        errorMessage: {
-            additionalProperties: 'El formato del objeto no es válido',
-        },
-    }
+	{
+		password: passwordDTOSchema,
+	},
+	{
+		additionalProperties: false,
+		errorMessage: {
+			additionalProperties: 'El formato del objeto no es válido',
+		},
+	},
 );
 
-const ajv = new Ajv({ allErrors: true })
-    .addKeyword('kind')
-    .addKeyword('modifier');
+const ajv = new Ajv({ allErrors: true }).addKeyword('kind').addKeyword('modifier');
 
 ajv.addFormat('password', /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/);
 addErrors(ajv);
@@ -25,14 +23,14 @@ addErrors(ajv);
 const validateSchema = ajv.compile(UnregisterDTOSchema);
 
 const userUnregisterDTO = (req, res, next) => {
-    const isDTOValid = validateSchema(req.body);
+	const isDTOValid = validateSchema(req.body);
 
-    if (!isDTOValid)
-        return res.status(400).send({
-            errors: validateSchema.errors.map((error) => error.message),
-        });
+	if (!isDTOValid)
+		return res.status(400).send({
+			errors: validateSchema.errors.map(error => error.message),
+		});
 
-    next();
+	next();
 };
 
 export default userUnregisterDTO;

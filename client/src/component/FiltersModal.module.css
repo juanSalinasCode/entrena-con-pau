@@ -1,0 +1,9 @@
+.modal div {
+	background-color: #e9d5e3 !important;
+	border-radius: 10px;
+}
+
+.filtersDiv {
+	display: flex;
+	flex-wrap: wrap;
+}
