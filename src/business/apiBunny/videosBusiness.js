@@ -41,6 +41,7 @@ class VideosBusiness {
 						? jsonObjInBunnyVideoDescription.Categories
 						: [],
 					thumbnailFileName: item.thumbnailFileName,
+					lengthTimeMinutes: Math.ceil(item.length / 60),
 				};
 				// esto del jsonObjInBunnyVideoDescription es muy raro pero bueno se improvisa con lo que hay en la pagina de bunny.net
 			});

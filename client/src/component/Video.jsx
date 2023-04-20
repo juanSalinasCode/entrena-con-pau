@@ -7,6 +7,7 @@ class Video extends React.Component {
 		idLibrary: PropTypes.string.isRequired,
 		idVideo: PropTypes.string.isRequired,
 		title: PropTypes.string.isRequired,
+		categories: PropTypes.arrayOf(PropTypes.string),
 	};
 
 	render() {
@@ -32,6 +33,7 @@ class Video extends React.Component {
 						allowfullscreen='true'
 					/>
 				</div>
+				<div>{/* <CategoriesList categories={this.state.categories} /> */}</div>
 			</>
 		);
 	}

@@ -9,6 +9,7 @@ class VideoClase extends Component {
 			title: '',
 			idLibrary: '71821',
 			idVideo: '',
+			categories: [],
 		};
 	}
 
@@ -25,6 +26,7 @@ class VideoClase extends Component {
 		this.setState({
 			title: video.title,
 			idVideo: video.guid,
+			categories: video.categories,
 		});
 	}
 
@@ -34,6 +36,7 @@ class VideoClase extends Component {
 				idLibrary={this.state.idLibrary}
 				title={this.state.title}
 				idVideo={this.state.idVideo}
+				categories={this.state.categories}
 			/>
 		);
 	}

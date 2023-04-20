@@ -26,6 +26,7 @@ class VideosDAO {
 					title: item.title,
 					metaTags: item.metaTags,
 					thumbnailFileName: item.thumbnailFileName,
+					length: item.length,
 				};
 			});
 			return videoList;

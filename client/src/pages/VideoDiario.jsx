@@ -10,6 +10,7 @@ class VideoDiario extends Component {
 			title: '',
 			idLibrary: '71821',
 			idVideo: '',
+			categories: [],
 			allDailyVideoList: [],
 		};
 		this.setDailyVideo = this.setDailyVideo.bind(this);
@@ -51,6 +52,7 @@ class VideoDiario extends Component {
 					idLibrary={this.state.idLibrary}
 					title={this.state.title}
 					idVideo={this.state.idVideo}
+					categories={this.state.categories}
 				/>
 			</>
 		);
