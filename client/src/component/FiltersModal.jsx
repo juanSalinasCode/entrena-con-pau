@@ -108,6 +108,7 @@ class FiltersModal extends Component {
 	renderCheckboxes = (categoryList, categoryName) => {
 		return categoryList.map(categoryItem => (
 			<Form.Check
+				className={styles.checkbox}
 				key={categoryItem}
 				id={`${categoryName.replace(/\s+/g, '_')}-${categoryItem.replace(
 					/\s+/g,
@@ -145,7 +146,7 @@ class FiltersModal extends Component {
 						checked={this.filterIsChecked('Todas las Clases')}
 						onChange={event => this.handleCheckboxChange(event)}
 					/>
-					<Form>
+					<Form hidden={this.filterIsChecked('Todas las Clases')}>
 						<Form.Group>
 							<Form.Label>
 								<h6>Grupos Musculares</h6>
