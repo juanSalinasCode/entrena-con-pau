@@ -1,6 +1,6 @@
 import connectDB from '#Config/db.js';
 import '#Config/env.js';
-import httpServer from '#Config/express.js';
+import httpServer from '#Config/http.js';
 
 // Función para inicializar el servidor
 const bootstrap = async () => {
