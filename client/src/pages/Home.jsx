@@ -111,7 +111,10 @@ class Home extends Component {
 	}
 
 	render() {
-		const filters = JSON.parse(browserStorage.getItem('filters'));
+		let filters = ['Todas las Calses'];
+		if (JSON.parse(browserStorage.getItem('filters'))) {
+			filters = JSON.parse(browserStorage.getItem('filters'));
+		}
 		const hasAllClassesFilter = filters.includes('Todas las Clases');
 
 		return (
