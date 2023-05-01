@@ -110,6 +110,9 @@ class Home extends Component {
 	}
 
 	render() {
+		const filters = JSON.parse(browserStorage.getItem('filters'));
+		const hasAllClassesFilter = filters.includes('Todas las Clases');
+
 		return (
 			<>
 				<FiltersModal
@@ -124,7 +127,13 @@ class Home extends Component {
 				<Container>
 					<div className='row block pb-2 border-bottom'>
 						<div className={styles.clasesTopDiv}>
-							<p className={this.state.classTitle}>Todas las clases</p>
+							{hasAllClassesFilter ? (
+								<p className={this.state.classTitle}>Todas las Clases</p>
+							) : (
+								<p className={this.state.classTitle}>
+									{filters.join(' - ')}
+								</p>
+							)}
 
 							<div className={styles.searchDiv}>
 								<div

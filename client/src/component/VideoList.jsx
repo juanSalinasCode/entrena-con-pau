@@ -29,9 +29,26 @@ class VideoList extends React.Component {
 		const thumbnailBase = 'https://vz-2adbff09-bc7.b-cdn.net/';
 		const { videoList } = this.props;
 
+		// Ordenar la lista de videos por número de clase
+		const sortedVideoList = videoList.sort((a, b) => {
+			// Obtener los últimos dos caracteres del título como un número
+			const aClassNumber = parseInt(a.title.slice(-2));
+			const bClassNumber = parseInt(b.title.slice(-2));
+
+			// Si uno de los títulos no tiene un número de clase, colocarlo al final
+			if (isNaN(aClassNumber)) {
+				return 1;
+			} else if (isNaN(bClassNumber)) {
+				return -1;
+			}
+
+			// Ordenar por número de clase ascendente
+			return aClassNumber - bClassNumber;
+		});
+
 		return (
 			<div className={styles.videoListContainer}>
-				{videoList.map(video => (
+				{sortedVideoList.map(video => (
 					<>
 						<div
 							className={styles.video}
@@ -40,7 +57,6 @@ class VideoList extends React.Component {
 						>
 							<Link to='/video-clase'>
 								<p className={styles.title}>{'        ' + video.title}</p>
-
 								<div className={styles.thumbnail}>
 									<Image
 										src={

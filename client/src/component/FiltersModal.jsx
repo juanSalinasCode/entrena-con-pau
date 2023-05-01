@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Modal, Form } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import styles from './FiltersModal.module.css';
+import browserStorage from 'browser-storage';
 
 class FiltersModal extends Component {
 	static propTypes = {
@@ -31,9 +32,14 @@ class FiltersModal extends Component {
 		};
 	}
 
+	componentDidMount() {
+		browserStorage.setItem('filters', JSON.stringify(this.state.filters));
+	}
+
 	componentDidUpdate(prevProps, prevState) {
 		if (prevState.filters !== this.state.filters) {
 			this.filterVideoList(this.state.filters);
+			browserStorage.setItem('filters', JSON.stringify(this.state.filters));
 		}
 	}
 
