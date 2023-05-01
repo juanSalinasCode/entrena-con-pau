@@ -11,3 +11,24 @@
 	padding-top: 2%;
 	margin-left: 11%;
 }
+
+.thumbnail {
+	position: relative;
+	width: 80vw;
+	padding: 1%;
+}
+
+.thumbnail img {
+	border-radius: 2vh;
+}
+
+.playButton {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 50% !important;
+	background-color: rgba(219, 219, 219, 0.703) !important;
+	border-color: transparent !important;
+}
+

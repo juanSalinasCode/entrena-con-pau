@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Login from '../pages/Login.jsx';
+import Welcome from '../pages/Welcome.jsx';
 import VideoClase from '../pages/VideoClase.jsx';
 import VideoDiario from '../pages/VideoDiario.jsx';
 import Home from '../pages/Home.jsx';
@@ -37,6 +38,7 @@ function RoutesComponent() {
 					<Route path='*' element={<Navigate replace to='/' />} />
 				</Route>
 				<Route path='/login' element={<Login aspectRatio={aspectRatio} />} />
+				<Route path='/welcome' element={<Welcome aspectRatio={aspectRatio} />} />
 			</Routes>
 		</BrowserRouter>
 	);

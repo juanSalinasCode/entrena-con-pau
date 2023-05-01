@@ -43,12 +43,8 @@ class Home extends Component {
 	componentDidMount() {
 		const token = browserStorage.getItem('jwtToken');
 		if (!token) {
-			window.location.href = '/login';
+			// window.location.href = '/login';
 		}
-		window.scrollTo({
-			top: 0,
-			behavior: 'smooth',
-		});
 		fetch('/user/profile', {
 			method: 'GET',
 			headers: {
@@ -57,12 +53,13 @@ class Home extends Component {
 		})
 			.then(res => {
 				if (res.status !== 200) {
-					window.location.href = '/login';
+					// window.location.href = '/login';
 				}
 				// Continue normalmente
 			})
 			.catch(error => {
 				console.error(error);
+				// window.location.href = '/login';
 			});
 		fetch('/videos/getVideos')
 			.then(res => res.json())
@@ -72,6 +69,10 @@ class Home extends Component {
 					loading: false,
 				});
 			});
+		window.scrollTo({
+			top: 0,
+			behavior: 'smooth',
+		});
 		this.updateClass(this.props.aspectRatio);
 	}
 

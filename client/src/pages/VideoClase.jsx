@@ -10,14 +10,41 @@ class VideoClase extends Component {
 			idLibrary: '71821',
 			idVideo: '',
 			categories: [],
+			thumbnailFileName: '',
+			clickVideoToLogin: false,
 		};
 	}
 
 	componentDidMount() {
 		const token = browserStorage.getItem('jwtToken');
 		if (!token) {
-			window.location.href = '/login';
+			// window.location.href = '/login';
+			this.setState({
+				clickVideoToLogin: true,
+			});
 		}
+		fetch('/user/profile', {
+			method: 'GET',
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		})
+			.then(res => {
+				if (res.status !== 200) {
+					// window.location.href = '/login';
+					this.setState({
+						clickVideoToLogin: true,
+					});
+				}
+				// Continue normalmente
+			})
+			.catch(error => {
+				console.error(error);
+				// window.location.href = '/login';
+				this.setState({
+					clickVideoToLogin: true,
+				});
+			});
 		window.scrollTo({
 			top: 0,
 			behavior: 'smooth',
@@ -27,6 +54,7 @@ class VideoClase extends Component {
 			title: video.title,
 			idVideo: video.guid,
 			categories: video.categories,
+			thumbnailFileName: video.thumbnailFileName,
 		});
 	}
 
@@ -37,6 +65,8 @@ class VideoClase extends Component {
 				title={this.state.title}
 				idVideo={this.state.idVideo}
 				categories={this.state.categories}
+				clickVideoToLogin={this.state.clickVideoToLogin}
+				thumbnailFileName={this.state.thumbnailFileName}
 			/>
 		);
 	}
