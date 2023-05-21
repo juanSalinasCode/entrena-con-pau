@@ -1,0 +1,57 @@
+.filtersDiv {
+	display: flex;
+	flex-wrap: wrap;
+    justify-content: center;
+}
+
+.categories {
+    height: 10vh;
+    width: 95vw;
+    background-color: #DEDEDE;
+    border-radius: 2vw;
+    display: flex;
+	flex-wrap: wrap;
+    margin: auto;
+}
+
+.categoryDiv {
+    width: 20vw;
+    height: 6.5vh;
+    border-radius: 1.5vw;
+    margin: auto;
+    text-align: center; /* Alinea el texto horizontalmente */
+    display: flex; /* Aplica un flexbox para centrar verticalmente */
+    justify-content: center; /* Centra el contenido verticalmente */
+    align-items: center;
+}
+
+.categoryDivSelected {
+    background-color: #e6e6e6;
+    color: #e498ce;
+}
+
+.categoryDiv p {
+    position: relative;
+    top: 20%;
+}
+
+.checkbox {
+    margin: 3vw;
+    height: 25vh;
+    width: 25vw;
+    border-radius: 2vw;
+    background-image: url(https:/entrenaconpau.b-cdn.net/mattrosado.png);
+    font-family: 'Amatic SC';
+    font-size: 4.5vw;
+    color: #FFF;
+    font-weight: bold;
+}
+.checkbox input {
+    display: none;
+}
+.checkbox label {
+    position: relative;
+    left: 25%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+}

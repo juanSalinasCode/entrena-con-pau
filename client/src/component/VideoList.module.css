@@ -47,6 +47,24 @@ a:active {
 	border-color: transparent !important;
 }
 
+.timeDiv {
+	position: absolute;
+	top: 86%;
+	left: 10%;
+	transform: translate(-50%, -50%);
+	font-family: Public Sans;
+	font-size: 1vw;
+	color: #ffffff;
+	margin-top: 0.5vw;
+	width: 4vw;
+	height: 1.8vw;
+	text-align: center;
+	background-color: #dedede;
+	border-radius: 1vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
 
 @media (max-width: 600px) {
 	.video {
@@ -55,5 +73,11 @@ a:active {
 	.title {
 		font-size: 4.5vw;
 		margin: 0.6vw;
+	}
+	.timeDiv {
+		width: 12vw;
+		height: 5.4vw;
+		font-size: 3vw;
+		border-radius: 3vw;
 	}
 }

@@ -37,6 +37,9 @@ class VideosBusiness {
 				return {
 					guid: item.guid,
 					title: item.title,
+					videoFileCode: jsonObjInBunnyVideoDescription.VideoFileCode
+						? jsonObjInBunnyVideoDescription.VideoFileCode
+						: [],
 					categories: jsonObjInBunnyVideoDescription.Categories
 						? jsonObjInBunnyVideoDescription.Categories
 						: [],

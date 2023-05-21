@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Modal, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import styles from './FiltersModal.module.css';
+import styles from './CategoriesMenu.module.css';
 
-class FiltersModal extends Component {
+class CategoriesMenu extends Component {
 	static propTypes = {
 		categories: PropTypes.shape({
 			muscleGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -20,16 +20,15 @@ class FiltersModal extends Component {
 			}),
 		).isRequired,
 		updateVideoList: PropTypes.func.isRequired,
-		handleShowFiltersModal: PropTypes.func.isRequired,
-		handleCloseFiltersModal: PropTypes.func.isRequired,
-		showFiltersModal: PropTypes.bool.isRequired,
 		filters: PropTypes.arrayOf(PropTypes.string).isRequired,
 		updateFilters: PropTypes.func.isRequired,
 	};
 
 	constructor(props) {
 		super(props);
-		this.state = {};
+		this.state = {
+			categorySelected: 'activities',
+		};
 	}
 
 	componentDidUpdate(prevProps) {
@@ -104,6 +103,7 @@ class FiltersModal extends Component {
 		return this.props.filters.includes(filter);
 	}
 
+	// esto lo tendre que cambiar por el render de los divs con nombres de las categorias
 	renderCheckboxes = (categoryList, categoryName) => {
 		return categoryList.map(categoryItem => (
 			<Form.Check
@@ -126,31 +126,80 @@ class FiltersModal extends Component {
 	render() {
 		const { categories } = this.props;
 		return (
-			<Modal
-				className={styles.modal}
-				show={this.props.showFiltersModal}
-				onHide={this.props.handleCloseFiltersModal}
-			>
-				<Modal.Header closeButton>
-					<Modal.Title>Filtros de Búsqueda</Modal.Title>
-				</Modal.Header>
-				<Modal.Body>
-					<Form.Check
-						key='Todas las Clases'
-						id='Todas_las_Clases'
-						type='checkbox'
-						label='Todas las Clases'
-						name='Todas las Clases'
-						value='Todas las Clases'
-						checked={this.filterIsChecked('Todas las Clases')}
-						onChange={event => this.handleCheckboxChange(event)}
-					/>
-					<Form hidden={this.filterIsChecked('Todas las Clases')}>
+			<div className={styles.menu}>
+				<div className={styles.categories}>
+					<div
+						className={
+							styles.categoryDiv +
+							' ' +
+							(this.state.categorySelected === 'activities'
+								? styles.categoryDivSelected
+								: '')
+						}
+						onClick={() => {
+							this.setState({
+								categorySelected: 'activities',
+							});
+						}}
+					>
+						<p>Actividades</p>
+					</div>
+					<div
+						className={
+							styles.categoryDiv +
+							' ' +
+							(this.state.categorySelected === 'muscleGroups'
+								? styles.categoryDivSelected
+								: '')
+						}
+						onClick={() => {
+							this.setState({
+								categorySelected: 'muscleGroups',
+							});
+						}}
+					>
+						<p>Grupos Musculares</p>
+					</div>
+					<div
+						className={
+							styles.categoryDiv +
+							' ' +
+							(this.state.categorySelected === 'materials'
+								? styles.categoryDivSelected
+								: '')
+						}
+						onClick={() => {
+							this.setState({
+								categorySelected: 'materials',
+							});
+						}}
+					>
+						<p>Materiales</p>
+					</div>
+					<div
+						className={
+							styles.categoryDiv +
+							' ' +
+							(this.state.categorySelected === 'nivel'
+								? styles.categoryDivSelected
+								: '')
+						}
+						onClick={() => {
+							this.setState({
+								categorySelected: 'nivel',
+							});
+						}}
+					>
+						<p>nivel</p>
+					</div>
+				</div>
+				<div>
+					<Form>
 						<Form.Group>
-							<Form.Label>
-								<h6>Grupos Musculares</h6>
-							</Form.Label>
-							<div className={styles.filtersDiv}>
+							<div
+								hidden={this.state.categorySelected !== 'muscleGroups'}
+								className={styles.filtersDiv}
+							>
 								{this.renderCheckboxes(
 									categories.muscleGroups,
 									'muscleGroups',
@@ -158,10 +207,10 @@ class FiltersModal extends Component {
 							</div>
 						</Form.Group>
 						<Form.Group>
-							<Form.Label>
-								<h6>Actividades</h6>
-							</Form.Label>
-							<div className={styles.filtersDiv}>
+							<div
+								hidden={this.state.categorySelected !== 'activities'}
+								className={styles.filtersDiv}
+							>
 								{this.renderCheckboxes(
 									categories.activities,
 									'activities',
@@ -169,26 +218,26 @@ class FiltersModal extends Component {
 							</div>
 						</Form.Group>
 						<Form.Group>
-							<Form.Label>
-								<h6>Materiales</h6>
-							</Form.Label>
-							<div className={styles.filtersDiv}>
+							<div
+								hidden={this.state.categorySelected !== 'materials'}
+								className={styles.filtersDiv}
+							>
 								{this.renderCheckboxes(categories.materials, 'materials')}
 							</div>
 						</Form.Group>
 						<Form.Group>
-							<Form.Label>
-								<h6>Nivel</h6>
-							</Form.Label>
-							<div className={styles.filtersDiv}>
+							<div
+								hidden={this.state.categorySelected !== 'nivel'}
+								className={styles.filtersDiv}
+							>
 								{this.renderCheckboxes(categories.nivel, 'nivel')}
 							</div>
 						</Form.Group>
 					</Form>
-				</Modal.Body>
-			</Modal>
+				</div>
+			</div>
 		);
 	}
 }
 
-export default FiltersModal;
+export default CategoriesMenu;

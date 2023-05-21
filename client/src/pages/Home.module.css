@@ -53,3 +53,7 @@
 	transform: translate(-50%, -50%);
 	color: #ba7ea9 !important;
 }
+
+.divRelleno {
+	height: 100vh;
+}

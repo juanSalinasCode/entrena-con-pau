@@ -15,8 +15,9 @@ class VideoList extends React.Component {
 				guid: PropTypes.string.isRequired,
 				title: PropTypes.string.isRequired,
 				hide: PropTypes.bool.isRequired,
-				categories: PropTypes.arrayOf(PropTypes.string),
-				thumbnailFileName: PropTypes.string,
+				categories: PropTypes.arrayOf(PropTypes.string).isRequired,
+				thumbnailFileName: PropTypes.string.isRequired,
+				lengthTimeMinutes: PropTypes.number.isRequired,
 			}),
 		).isRequired,
 	};
@@ -70,6 +71,9 @@ class VideoList extends React.Component {
 									<Button className={styles.playButton}>
 										<FontAwesomeIcon icon={faPlay} />
 									</Button>
+									<div
+										className={styles.timeDiv}
+									>{`${video.lengthTimeMinutes} min`}</div>
 								</div>
 							</Link>
 						</div>

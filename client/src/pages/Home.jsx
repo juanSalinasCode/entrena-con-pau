@@ -1,7 +1,8 @@
 import { React, Component } from 'react';
-import { Container, Spinner } from 'react-bootstrap';
+import { Spinner } from 'react-bootstrap';
 import VideoList from '../component/VideoList.jsx';
 import FiltersModal from '../component/FiltersModal.jsx';
+import CategoriesMenu from '../component/CategoriesMenu.jsx';
 import styles from './Home.module.css';
 import PropTypes from 'prop-types';
 import browserStorage from 'browser-storage';
@@ -19,7 +20,9 @@ class Home extends Component {
 			loading: true,
 			videoList: [],
 			classTitle: null,
+			filters: [],
 			showFiltersModal: false,
+			showCategoriesMenu: true,
 			categories: {
 				muscleGroups: [
 					'full body',
@@ -33,9 +36,11 @@ class Home extends Component {
 				],
 				activities: ['stretching', 'pilates', 'hiit', 'cardio', 'local'],
 				materials: ['silla', 'pelota', 'mat', 'mancuernas', 'bandas'],
+				nivel: ['inicial', 'intermedio-avanzado'],
 			},
 		};
 		this.updateVideoList = this.updateVideoList.bind(this);
+		this.updateFilters = this.updateFilters.bind(this);
 		this.handleShowFiltersModal = this.handleShowFiltersModal.bind(this);
 		this.handleCloseFiltersModal = this.handleCloseFiltersModal.bind(this);
 	}
@@ -86,10 +91,15 @@ class Home extends Component {
 		this.setState({ videoList: newVideoList });
 	}
 
+	updateFilters(newFilters) {
+		this.setState({ filters: newFilters, showCategoriesMenu: false });
+	}
+
 	updateClass(aspectRatio) {
 		if (aspectRatio >= 1.1) {
 			this.setState({
 				classTitle: styles.title_h,
+				// aca devería agregar de esta forma la clase para el boton del buscador
 			});
 		} else {
 			this.setState({
@@ -111,12 +121,7 @@ class Home extends Component {
 	}
 
 	render() {
-		let filters = ['Todas las Calses'];
-		if (JSON.parse(browserStorage.getItem('filters'))) {
-			filters = JSON.parse(browserStorage.getItem('filters'));
-		}
-		const hasAllClassesFilter = filters.includes('Todas las Clases');
-
+		const hasAllClassesFilter = this.state.filters.includes('Todas las Clases');
 		return (
 			<>
 				<FiltersModal
@@ -126,47 +131,74 @@ class Home extends Component {
 					handleShowFiltersModal={this.handleShowFiltersModal}
 					handleCloseFiltersModal={this.handleCloseFiltersModal}
 					showFiltersModal={this.state.showFiltersModal}
+					filters={this.state.filters}
+					updateFilters={this.updateFilters}
 				></FiltersModal>
 
-				<Container>
-					<div className='row block pb-2 border-bottom'>
-						<div className={styles.clasesTopDiv}>
-							{hasAllClassesFilter ? (
-								<p className={this.state.classTitle}>Todas las Clases</p>
-							) : (
+				<div className='block pb-2 border-bottom'>
+					<div className={styles.clasesTopDiv}>
+						{this.state.showCategoriesMenu ? (
+							<>
 								<p className={this.state.classTitle}>
-									{filters.join(' - ')}
+									Clases por Categorias
 								</p>
-							)}
+							</>
+						) : (
+							<>
+								{hasAllClassesFilter ? (
+									<p className={this.state.classTitle}>
+										Todas las Clases
+									</p>
+								) : (
+									<p className={this.state.classTitle}>
+										{this.state.filters.join(' - ')}
+									</p>
+								)}
+							</>
+						)}
 
-							<div className={styles.searchDiv}>
-								<div
-									className={styles.searchBox}
-									onClick={() => this.handleShowFiltersModal()}
-								>
-									<FontAwesomeIcon icon={faSearch} />
-									<p className={styles.searchText}>{'  Buscar'}</p>
-								</div>
+						<div className={styles.searchDiv}>
+							<div
+								className={styles.searchBox}
+								onClick={() => this.handleShowFiltersModal()}
+							>
+								<FontAwesomeIcon icon={faSearch} />
+								<p className={styles.searchText}>{'  Buscar'}</p>
 							</div>
 						</div>
 					</div>
-				</Container>
+				</div>
 				<div
 					className={
 						this.state.loading ? styles.provisionalBackround : undefined
 					}
 				>
 					<div>
-						{this.state.loading ? (
-							<Spinner
-								className={styles.spinerLoading}
-								type='Circles'
-								animation='grow'
-							/>
+						{this.state.showCategoriesMenu ? (
+							<div>
+								<CategoriesMenu
+									videoList={this.state.videoList}
+									updateVideoList={this.updateVideoList}
+									categories={this.state.categories}
+									filters={this.state.filters}
+									updateFilters={this.updateFilters}
+								></CategoriesMenu>
+							</div>
 						) : (
-							<VideoList videoList={this.state.videoList} />
+							<div>
+								{this.state.loading ? (
+									<Spinner
+										className={styles.spinerLoading}
+										type='Circles'
+										animation='grow'
+									/>
+								) : (
+									<VideoList videoList={this.state.videoList} />
+								)}
+							</div>
 						)}
 					</div>
+					<div className={styles.divRelleno}></div>
 				</div>
 			</>
 		);
