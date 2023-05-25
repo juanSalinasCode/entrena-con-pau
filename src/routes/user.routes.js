@@ -1,6 +1,7 @@
 import userLoginController from '#Controllers/user/user-login.controller.js';
 import userProfileController from '#Controllers/user/user-profile.controller.js';
 import userRegisterController from '#Controllers/user/user-register.controller.js';
+import userMpRegisterController from '#Controllers/user/user-mp-register.controller.js';
 import userUnregisterController from '#Controllers/user/user-unregister.controller.js';
 import userUpdateDataController from '#Controllers/user/user-update-data.controller.js';
 import userUpdateEmailController from '#Controllers/user/user-update-email.controller.js';
@@ -17,6 +18,7 @@ import { Router } from 'express';
 const userRouter = Router();
 
 userRouter.post('/register', userRegisterDTO, userRegisterController);
+userRouter.post('/mp/register', userMpRegisterController);
 userRouter.post('/login', userLoginDTO, userLoginController);
 userRouter.get('/profile', userJWTDTO, userProfileController);
 userRouter.patch('/update-data', userJWTDTO, userUpdateDataDTO, userUpdateDataController);
