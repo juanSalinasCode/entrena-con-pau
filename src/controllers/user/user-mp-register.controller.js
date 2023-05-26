@@ -1,6 +1,7 @@
 // import crypto from 'crypto';
 
 const userMpRegisterController = async (req, res) => {
+	console.log(req.body);
 	// const { type } = req.body;
 	// // Verificar la firma del token
 	// const accessToken =
