@@ -17,7 +17,7 @@ const userMpRegisterController = async (req, res) => {
 
 	// if (type !== 'subscription') return res.status(409).send({ errors: [''] });
 
-	return res.status(201).send('Usuario registrado con éxito');
+	return res.status(200).send('Usuario registrado con éxito');
 };
 
 export default userMpRegisterController;
