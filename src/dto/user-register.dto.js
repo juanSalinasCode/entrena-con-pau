@@ -1,7 +1,7 @@
 import {
 	emailDTOSchema,
 	idDTOSchema,
-	nameDTOSchema,
+	// nameDTOSchema,
 	passwordDTOSchema,
 } from '#Dto/dto-types.js';
 import { Type } from '@sinclair/typebox';
@@ -12,7 +12,7 @@ import addFormats from 'ajv-formats';
 const RegisterDTOSchema = Type.Object(
 	{
 		_id: idDTOSchema,
-		name: nameDTOSchema,
+		// name: nameDTOSchema,
 		email: emailDTOSchema,
 		password: passwordDTOSchema,
 	},
