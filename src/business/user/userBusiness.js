@@ -18,14 +18,17 @@ class UserBusiness {
 			if (existingUserByEmail) {
 				throw new Error('Ya existe un usuario con ese email registrado');
 			}
-
-			const hashedPassword = await hash(this.createPassword(), SALT);
+			const password = this.createPassword();
+			const hashedPassword = await hash(password, SALT);
 			const user = new UserModel({
 				_id: uuidv4(),
 				email: paymentData.payer.email,
 				password: hashedPassword,
 			});
+
 			await user.save();
+
+			user.setPassword(password);
 
 			return user;
 		} catch (err) {

@@ -8,6 +8,10 @@ const userSchema = new Schema({
 	password: { type: String, require: true },
 });
 
+userSchema.methods.setPassword = function (newPassword) {
+	this.password = newPassword;
+};
+
 const UserModel = model('User', userSchema);
 
 export default UserModel;
