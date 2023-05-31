@@ -1,8 +1,7 @@
 import { React, Component } from 'react';
-import { Button, Alert } from 'react-bootstrap';
-import styles from './Login.module.css';
+import { Button } from 'react-bootstrap';
+import styles from './Register.module.css';
 import PropTypes from 'prop-types';
-import browserStorage from 'browser-storage';
 
 class Login extends Component {
 	static propTypes = {
@@ -12,14 +11,11 @@ class Login extends Component {
 	state = {
 		imageUrl: '',
 		classTitle: null,
+		classText: null,
 		classDivModal: null,
 		classDivModalBackground: null,
-		classInputLogin: null,
 		classButtonPrimary: null,
 		classButtonSecondary: null,
-		email: '',
-		password: '',
-		errors: [],
 	};
 
 	componentDidMount() {
@@ -39,9 +35,9 @@ class Login extends Component {
 				classTitle: styles.title_h,
 				classDivModal: styles.divModal_h,
 				classDivModalBackground: styles.divModalBackground_h,
-				classInputLogin: styles.inputLogin_h,
 				classButtonPrimary: styles.buttonPrimary_h,
 				classButtonSecondary: styles.buttonSecondary_h,
+				classText: styles.text_h,
 			});
 		} else {
 			this.setState({
@@ -49,40 +45,12 @@ class Login extends Component {
 				classTitle: styles.title_v,
 				classDivModal: styles.divModal_v,
 				classDivModalBackground: styles.divModalBackground_v,
-				classInputLogin: styles.inputLogin_v,
 				classButtonPrimary: styles.buttonPrimary_v,
 				classButtonSecondary: styles.buttonSecondary_v,
+				classText: styles.text_v,
 			});
 		}
 	}
-
-	// estas funciones handle estan generando errores por consola pero funcionan
-
-	handleEmail = event => {
-		this.setState({ email: event.target.value });
-	};
-
-	handlePassword = event => {
-		this.setState({ password: event.target.value });
-	};
-
-	handleLogin = async () => {
-		const { email, password } = this.state;
-		const res = await fetch('/user/login', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({ email, password }),
-		});
-		const data = await res.json();
-		if (res.status === 200) {
-			browserStorage.setItem('jwtToken', data.jwt);
-			window.location.href = '/';
-		} else {
-			this.setState({ errors: data.errors });
-		}
-	};
 
 	render() {
 		return (
@@ -101,48 +69,32 @@ class Login extends Component {
 				></div>
 				<div className={this.state.classDivModal}>
 					<p className={this.state.classTitle}>#EntrenaConPau</p>
-					<input
-						className={this.state.classInputLogin}
-						onChange={this.handleEmail}
-						value={this.state.email}
-						placeholder='Email'
-					/>
-					<input
-						className={this.state.classInputLogin}
-						onChange={this.handlePassword}
-						value={this.state.password}
-						type='password'
-						placeholder='Contraseña'
-					/>
+					<p className={this.state.classText}>
+						Que bueno que ta haya interesado la plataforma! , comenza tu
+						prueba gratuita para obtener tu usuario y contraseña. Te llegaran
+						por correo. Podes consultarnos cualquier cosa a nuestro correo
+						entrenaconpau@gmail.com o al +54 9 11 5318-5532
+					</p>
 					<div className={styles.divButton}>
 						<Button
 							className={this.state.classButtonPrimary}
-							onClick={this.handleLogin}
+							onClick={() => {
+								window.location.href =
+									'https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=2c93808487562016018757c82f270099';
+							}}
 						>
-							<div>A Entrenar!</div>
+							<div>Comenzar</div>
 						</Button>
 						<Button
 							className={this.state.classButtonSecondary}
 							onClick={() => {
-								window.location.href = '/register';
+								window.location.href = '/login';
 							}}
 						>
-							<div>Registrarse</div>
+							<div>Login</div>
 						</Button>
 					</div>
 				</div>
-				{this.state.errors.length > 0 && (
-					<Alert
-						variant='danger'
-						onClose={() => this.setState({ errors: [] })}
-						dismissible
-						className={this.state.classDivModal}
-					>
-						{this.state.errors.map((error, index) => (
-							<p key={index}>{error}</p>
-						))}
-					</Alert>
-				)}
 			</div>
 		);
 	}
