@@ -13,9 +13,8 @@ class UserBusiness {
 	async createNewUserFromPaymentId(paymentId) {
 		try {
 			const paymentData = await this.paymentDAO.getPaymentData(paymentId);
-			const existingUserByEmail = await UserModel.findOne(
-				paymentData.payer.email,
-			).exec();
+			const email = paymentData.payer.email;
+			const existingUserByEmail = await UserModel.findOne({ email }).exec();
 			if (existingUserByEmail) {
 				throw new Error('Ya existe un usuario con ese email registrado');
 			}
