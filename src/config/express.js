@@ -23,6 +23,6 @@ expressApp.get('*', (req, res) => {
 	res.sendFile(path.join(process.cwd(), 'client/dist/index.html'));
 });
 
-userRouter.post('/notificaciones', userMpRegisterController);
+expressApp.post('/notificaciones', userMpRegisterController);
 
 export default expressApp;
