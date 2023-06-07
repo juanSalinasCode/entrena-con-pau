@@ -6,6 +6,7 @@ const userSchema = new Schema({
 	name: { type: String, require: false, minLength: 2, maxLength: 50 },
 	email: { type: String, require: true, unique: true },
 	password: { type: String, require: true },
+	subscriptionId: { type: String, require: false },
 });
 
 userSchema.methods.setPassword = function (newPassword) {

@@ -1,4 +1,7 @@
 import UserModel from '#Schemas/user.schema.js';
+import UserBusiness from '#Business/user/userBusiness.js';
+
+const userBusiness = new UserBusiness();
 
 const userProfileController = async (req, res) => {
 	const { id } = req;
@@ -9,7 +12,10 @@ const userProfileController = async (req, res) => {
 
 	const { _id, name, email } = existingUserById;
 
-	return res.send({ _id, name, email });
+	const subscriptionData = existingUserById.subscriptionId
+		? await userBusiness.getUserSubscriptionData(existingUserById.subscriptionId)
+		: null;
+	return res.send({ _id, name, email, subscriptionData });
 };
 
 export default userProfileController;

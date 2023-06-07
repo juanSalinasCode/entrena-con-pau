@@ -8,6 +8,12 @@ export const idDTOSchema = Type.String({
 	},
 });
 
+export const subscriptionIdDTOSchema = Type.String({
+	errorMessage: {
+		type: 'El tipo de subscriptionId no es válido, debe ser un string',
+	},
+});
+
 export const videoIdDTOSchema = Type.String({
 	errorMessage: {
 		type: 'El tipo de _id no es válido, debe ser un string',
@@ -23,7 +29,7 @@ export const dateDTOSchema = Type.String({
 
 export const nameDTOSchema = Type.String({
 	minLength: 2,
-	maxLength: 20,
+	maxLength: 50,
 	errorMessage: {
 		minLength: 'name debe tener al menos 2 caracteres de longitud',
 		maxLength: 'name debe tener como máximo 20 caracteres de longitud',
@@ -40,12 +46,12 @@ export const emailDTOSchema = Type.String({
 
 export const passwordDTOSchema = Type.String({
 	format: 'password',
-	minLength: 10,
+	minLength: 8,
 	maxLength: 25,
 	errorMessage: {
 		type: 'El tipo de la password no es válido, debe ser un string',
 		format: 'El formato de la password, debe contener una mayúscula, una minúcula y un número',
-		minLength: 'password debe tener al menos 10 caracteres de longitud',
+		minLength: 'password debe tener al menos 8 caracteres de longitud',
 		maxLength: 'password debe tener como máximo 25 caracteres de longitud',
 	},
 });

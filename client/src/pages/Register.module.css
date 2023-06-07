@@ -19,6 +19,7 @@
 	margin: auto;
 	text-align: center;
 	align-items: center;
+	height: 15vh;
 }
 
 .title_v {
@@ -35,26 +36,31 @@
 	margin: auto;
 	text-align: center;
 	align-items: center;
+	height: 15vh;
 }
 
 .divModal_h {
 	position: absolute;
-	width: 60vw;
+	width: 90vw;
 	height: 85vh;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	justify-content: center;
+	display: flex;
+    flex-direction: column
 }
 
 .divModal_v {
 	position: absolute;
 	width: 95vw;
-	height: 70vh;
+	height: 80vh;
 	top: 55%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	justify-content: center;
+	display: flex;
+    flex-direction: column
 }
 
 .divModalBackground_h {
@@ -79,24 +85,23 @@
 	text-align: center;
 	align-items: center;
 	color: rgba(54, 54, 51, 0.9) !important;
-	top: 30%;
-	margin-left: 30%;
-	margin-top: 4vh;
+	border: 4px solid #e9d5e3 !important;
+	margin: auto;
 	border-radius: 1.5vw !important;
 }
 
 .buttonPrimary_v {
 	position: relative;
-	width: 50%;
-	height: 40%;
+	width: 45%;
+	height: 30%;
 	background: #e9d5e3 !important;
 	font-family: Public Sans;
 	font-size: 3.5vh !important;
 	text-align: center;
 	align-items: center;
 	color: rgba(54, 54, 51, 0.9) !important;
-	top: 30%;
-	margin-left: 25%;
+	border: 4px solid #e9d5e3 !important;
+	margin: auto;
 	border-radius: 2vh !important;
 }
 
@@ -111,16 +116,14 @@
 	align-items: center;
 	color: #e9d5e3 !important;
 	border: 4px solid #e9d5e3 !important;
-	top: 30%;
-	margin-left: 30%;
-	margin-top: 4vh;
+	margin: auto;
 	border-radius: 1.5vw !important;
 }
 
 .buttonSecondary_v {
 	position: relative;
-	width: 50%;
-	height: 40%;
+	width: 45%;
+	height: 30%;
 	background: #00000000 !important;
 	font-family: Public Sans;
 	font-size: 3.5vh !important;
@@ -128,38 +131,76 @@
 	align-items: center;
 	color: #e9d5e3 !important;
 	border: 4px solid #e9d5e3 !important;
-	top: 30%;
-	margin-left: 25%;
-	margin-top: 3vh;
+	margin: auto;
 	border-radius: 2vh !important;
 }
 
 .text_h {
-	border: 4px solid #e9d5e3;
 	background-color: transparent;
 	color: #e9d5e3;
 	width: 90%;
 	font-family: Public Sans;
-	font-size: 2vw;
+	font-size: 2.2vw;
 	border-radius: 1vw;
 	text-align: center;
 	display: flex;
 	align-items: center;
-	margin-top: 2%;
-	margin-left: 5%;
+	margin: auto;
+	height: 50vh;
 }
 
 .text_v {
-	border: 4px solid #e9d5e3;
 	background-color: transparent;
 	color: #e9d5e3;
 	width: 90%;
 	font-family: Public Sans;
-	font-size: 2.8vh;
+	font-size: 3vh;
 	border-radius: 2vh;
 	text-align: center;
 	display: flex;
 	align-items: center;
-	margin-top: 2%;
+	margin: auto;
+	height: 50vh;
+
+
+}
+
+.divButton {
+	display: flex; 
+	flex-direction: row;
+	height: 35vh;
+}
+
+.inputLogin_h {
+	border: 4px solid #e9d5e3;
+	background-color: transparent;
+	color: #e9d5e3;
+	width: 80%;
+	height: 10%;
+	font-family: Public Sans;
+	font-size: 1.5vw;
+	border-radius: 1vw;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	line-height: 10%;
+	margin-top: 5vh;
+	margin-left: 10%;
+}
+
+.inputLogin_v {
+	border: 4px solid #e9d5e3;
+	background-color: transparent;
+	color: #e9d5e3;
+	width: 90%;
+	height: 10%;
+	font-family: Public Sans;
+	font-size: 3vh;
+	border-radius: 2vh;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	line-height: 10%;
+	margin-top: 3vh;
 	margin-left: 5%;
 }

@@ -1,5 +1,6 @@
 // userBusiness.js
 import PaymentsDAO from '#DAO/apiMercadoPago/paymentsDAO.js';
+import SubscriptionsDAO from '#DAO/apiMercadoPago/subscriptionsDAO.js';
 import { SALT } from '#Constants/salt.js';
 import UserModel from '#Schemas/user.schema.js';
 import { hash } from 'bcrypt';
@@ -7,12 +8,30 @@ import { v4 as uuidv4 } from 'uuid';
 
 class UserBusiness {
 	constructor() {
-		this.paymentDAO = new PaymentsDAO();
+		this.paymentsDAO = new PaymentsDAO();
+		this.subscriptionsDAO = new SubscriptionsDAO();
+	}
+
+	async getUserSubscriptionData(subscriptionId) {
+		try {
+			const subscriptionData = await this.subscriptionsDAO.getSubscriptionData(
+				subscriptionId,
+			);
+			const subscription = {
+				id: subscriptionData.id,
+				status: subscriptionData.status,
+			};
+
+			return subscription;
+		} catch (err) {
+			console.error('error:' + err);
+			throw err;
+		}
 	}
 
 	async createNewUserFromPaymentId(paymentId) {
 		try {
-			const paymentData = await this.paymentDAO.getPaymentData(paymentId);
+			const paymentData = await this.paymentsDAO.getPaymentData(paymentId);
 			const email = paymentData.payer.email;
 			const existingUserByEmail = await UserModel.findOne({ email }).exec();
 			if (existingUserByEmail) {

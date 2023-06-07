@@ -26,6 +26,7 @@
 		"react-spinners": "^0.13.8",
 		"react-video-js-player": "^1.1.1",
 		"react-web-storage": "^1.0.0",
+		"uuid": "^9.0.0",
 		"video.js": "^7.20.3"
 	},
 	"devDependencies": {

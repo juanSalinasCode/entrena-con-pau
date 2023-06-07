@@ -3,14 +3,14 @@ import userProfileController from '#Controllers/user/user-profile.controller.js'
 import userRegisterController from '#Controllers/user/user-register.controller.js';
 import userMpRegisterController from '#Controllers/user/user-mp-register.controller.js';
 import userUnregisterController from '#Controllers/user/user-unregister.controller.js';
-import userUpdateDataController from '#Controllers/user/user-update-data.controller.js';
+import userUpdateSubscriptionController from '#Controllers/user/user-update-subscription.controller.js';
 import userUpdateEmailController from '#Controllers/user/user-update-email.controller.js';
 import userUpdatePasswordController from '#Controllers/user/user-update-password.controller.js';
 import userJWTDTO from '#Dto/user-jwt.dto.js';
 import userLoginDTO from '#Dto/user-login.dto.js';
 import userRegisterDTO from '#Dto/user-register.dto.js';
 import userUnregisterDTO from '#Dto/user-unregister.dto.js';
-import userUpdateDataDTO from '#Dto/user-update-data.dto.js';
+import userUpdateSubscriptionDTO from '#Dto/user-update-subscription.dto.js';
 import userUpdateEmailDTO from '#Dto/user-update-email.dto.js';
 import userUpdatePasswordDTO from '#Dto/user-update-password.dto.js';
 import { Router } from 'express';
@@ -21,7 +21,12 @@ userRouter.post('/register', userRegisterDTO, userRegisterController);
 userRouter.post('/mp/register', userMpRegisterController);
 userRouter.post('/login', userLoginDTO, userLoginController);
 userRouter.get('/profile', userJWTDTO, userProfileController);
-userRouter.patch('/update-data', userJWTDTO, userUpdateDataDTO, userUpdateDataController);
+userRouter.patch(
+	'/update-subscription',
+	userJWTDTO,
+	userUpdateSubscriptionDTO,
+	userUpdateSubscriptionController,
+);
 userRouter.patch(
 	'/update-email',
 	userJWTDTO,

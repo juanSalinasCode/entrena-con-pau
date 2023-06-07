@@ -111,7 +111,6 @@ class Login extends Component {
 						className={this.state.classInputLogin}
 						onChange={this.handlePassword}
 						value={this.state.password}
-						type='password'
 						placeholder='Contraseña'
 					/>
 					<div className={styles.divButton}>
