@@ -13,12 +13,12 @@ class Video extends React.Component {
 		idVideo: PropTypes.string.isRequired,
 		title: PropTypes.string.isRequired,
 		categories: PropTypes.arrayOf(PropTypes.string),
-		clickVideoToLogin: PropTypes.bool,
+		clickVideoRedirect: PropTypes.string,
 		thumbnailFileName: PropTypes.string,
 	};
 
 	render() {
-		const { idLibrary, idVideo, title, thumbnailFileName, clickVideoToLogin } =
+		const { idLibrary, idVideo, title, thumbnailFileName, clickVideoRedirect } =
 			this.props;
 		const thumbnailBase = 'https://vz-2adbff09-bc7.b-cdn.net/';
 
@@ -30,13 +30,22 @@ class Video extends React.Component {
 				<div
 					className={styles.videoCenter}
 					onClick={
-						clickVideoToLogin ? () => (window.location.href = '/login') : NaN
+						clickVideoRedirect
+							? () => (window.location.href = clickVideoRedirect)
+							: NaN
 					}
 				>
-					{clickVideoToLogin ? (
+					{clickVideoRedirect ? (
 						<div className={styles.thumbnail}>
 							<Image
-								src={thumbnailBase + idVideo + '/' + thumbnailFileName}
+								src={
+									thumbnailFileName.startsWith('https://')
+										? thumbnailFileName
+										: thumbnailBase +
+										  idVideo +
+										  '/' +
+										  thumbnailFileName
+								}
 								fluid
 							/>
 							<Button className={styles.playButton}>

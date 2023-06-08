@@ -17,19 +17,63 @@ class VideoDiario extends Component {
 			idVideo: '',
 			categories: [],
 			allDailyVideoList: [],
+			thumbnailFileName: '',
+			clickVideoRedirect: null,
 		};
 		this.setDailyVideo = this.setDailyVideo.bind(this);
 	}
 
 	componentDidMount() {
-		const token = browserStorage.getItem('jwtToken');
-		if (!token) {
-			window.location.href = '/login';
-		}
 		window.scrollTo({
 			top: 0,
 			behavior: 'smooth',
 		});
+
+		this.checkUserData();
+
+		this.uploadDailyVideoDates();
+	}
+
+	checkUserData() {
+		const token = browserStorage.getItem('jwtToken');
+		if (!token) {
+			this.setState({
+				clickVideoRedirect: '/login',
+			});
+		} else {
+			fetch('/user/profile', {
+				method: 'GET',
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+				.then(res => {
+					if (res.status === 200) {
+						return res.json(); // Parse the response body as JSON
+					}
+					throw new Error('Invalid response');
+				})
+				.then(data => {
+					if (data.subscriptionData?.status === 'authorized') {
+						this.setState({
+							clickVideoRedirect: null,
+						});
+					} else {
+						this.setState({
+							clickVideoRedirect: '/register',
+						});
+					}
+				})
+				.catch(error => {
+					console.error(error);
+					this.setState({
+						clickVideoRedirect: '/login',
+					});
+				});
+		}
+	}
+
+	uploadDailyVideoDates() {
 		fetch('/videos/getDailyVideoDates')
 			.then(res => res.json())
 			.then(data => {
@@ -43,6 +87,7 @@ class VideoDiario extends Component {
 		this.setState({
 			title: 'Video Diario',
 			idVideo: item.videoId,
+			thumbnailFileName: 'https://entrenaconpau.b-cdn.net/fondoLoginHorizontal.jpg',
 		});
 	}
 
@@ -60,6 +105,8 @@ class VideoDiario extends Component {
 					title={this.state.title}
 					idVideo={this.state.idVideo}
 					categories={this.state.categories}
+					clickVideoRedirect={this.state.clickVideoRedirect}
+					thumbnailFileName={this.state.thumbnailFileName}
 				/>
 			</>
 		);
