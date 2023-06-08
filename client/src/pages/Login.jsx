@@ -64,7 +64,9 @@ class Login extends Component {
 	// estas funciones handle estan generando errores por consola pero funcionan
 
 	handleEmail = event => {
-		this.setState({ email: event.target.value });
+		const email = event.target.value.trim(); // Eliminar espacios en blanco al inicio y al final
+
+		this.setState({ email });
 	};
 
 	handlePassword = event => {
