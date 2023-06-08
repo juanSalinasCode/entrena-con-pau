@@ -4,6 +4,7 @@ import styles from './DailyVideoList.module.css';
 
 class DailyVideoList extends Component {
 	static propTypes = {
+		aspectRatio: PropTypes.number.isRequired,
 		allDailyVideoList: PropTypes.arrayOf(
 			PropTypes.shape({
 				_id: PropTypes.string.isRequired,
@@ -21,7 +22,27 @@ class DailyVideoList extends Component {
 		};
 	}
 
-	componentDidMount() {}
+	componentDidMount() {
+		this.updateClass(this.props.aspectRatio);
+	}
+
+	componentDidUpdate(prevProps) {
+		if (prevProps.aspectRatio !== this.props.aspectRatio) {
+			this.updateClass(this.props.aspectRatio);
+		}
+	}
+
+	updateClass(aspectRatio) {
+		if (aspectRatio >= 1.1) {
+			this.setState({
+				classDailyVideoDiv: styles.dailyVideoDiv_h,
+			});
+		} else {
+			this.setState({
+				classDailyVideoDiv: styles.dailyVideoDiv_v,
+			});
+		}
+	}
 
 	formatDate(dateString) {
 		const [day, month, year] = dateString.split('/');
@@ -74,7 +95,7 @@ class DailyVideoList extends Component {
 						<div
 							key={item._id}
 							className={
-								styles.dailyVideoDiv +
+								this.state.classDailyVideoDiv +
 								' ' +
 								(selected ? styles.selected : '')
 							}

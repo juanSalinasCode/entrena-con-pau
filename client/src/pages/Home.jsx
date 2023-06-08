@@ -106,11 +106,14 @@ class Home extends Component {
 		if (aspectRatio >= 1.1) {
 			this.setState({
 				classTitle: styles.title_h,
-				// aca devería agregar de esta forma la clase para el boton del buscador
+				classSearchBox: styles.searchBox_h,
+				classSearchText: styles.searchText_h,
 			});
 		} else {
 			this.setState({
 				classTitle: styles.title_v,
+				classSearchBox: styles.searchBox_v,
+				classSearchText: styles.searchText_v,
 			});
 		}
 	}
@@ -166,11 +169,11 @@ class Home extends Component {
 
 						<div className={styles.searchDiv}>
 							<div
-								className={styles.searchBox}
+								className={this.state.classSearchBox}
 								onClick={() => this.handleShowFiltersModal()}
 							>
 								<FontAwesomeIcon icon={faSearch} />
-								<p className={styles.searchText}>{'  Buscar'}</p>
+								<p className={this.state.classSearchText}>{'  Buscar'}</p>
 							</div>
 						</div>
 					</div>

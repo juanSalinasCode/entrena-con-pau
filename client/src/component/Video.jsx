@@ -8,6 +8,7 @@ import { faPlay } from '@fortawesome/free-solid-svg-icons';
 
 class Video extends React.Component {
 	static propTypes = {
+		aspectRatio: PropTypes.number.isRequired,
 		idLibrary: PropTypes.string.isRequired,
 		idVideo: PropTypes.string.isRequired,
 		title: PropTypes.string.isRequired,
@@ -60,6 +61,8 @@ class Video extends React.Component {
 					)}
 				</div>
 				<div>{/* <CategoriesList categories={this.state.categories} /> */}</div>
+
+				<div className={styles.divRelleno}></div>
 			</>
 		);
 	}

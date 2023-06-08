@@ -34,8 +34,14 @@ function RoutesComponent() {
 			<Routes>
 				<Route path='/' element={<NavComp aspectRatio={aspectRatio} />}>
 					<Route index element={<Home aspectRatio={aspectRatio} />} />
-					<Route path='/video-clase' element={<VideoClase />} />
-					<Route path='/video-diario' element={<VideoDiario />} />
+					<Route
+						path='/video-clase'
+						element={<VideoClase aspectRatio={aspectRatio} />}
+					/>
+					<Route
+						path='/video-diario'
+						element={<VideoDiario aspectRatio={aspectRatio} />}
+					/>
 					<Route path='*' element={<Navigate replace to='/' />} />
 				</Route>
 				<Route path='/login' element={<Login aspectRatio={aspectRatio} />} />

@@ -31,3 +31,7 @@
 	background-color: rgba(219, 219, 219, 0.703) !important;
 	border-color: transparent !important;
 }
+
+.divRelleno {
+	height: 70vh;
+}

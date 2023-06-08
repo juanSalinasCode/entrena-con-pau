@@ -1,8 +1,13 @@
 import { React, Component } from 'react';
 import Video from '../component/Video.jsx';
 import browserStorage from 'browser-storage';
+import PropTypes from 'prop-types';
 
 class VideoClase extends Component {
+	static propTypes = {
+		aspectRatio: PropTypes.number.isRequired,
+	};
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -61,6 +66,7 @@ class VideoClase extends Component {
 	render() {
 		return (
 			<Video
+				aspectRatio={this.props.aspectRatio}
 				idLibrary={this.state.idLibrary}
 				title={this.state.title}
 				idVideo={this.state.idVideo}

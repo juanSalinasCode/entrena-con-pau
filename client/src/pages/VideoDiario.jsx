@@ -2,8 +2,13 @@ import { React, Component } from 'react';
 import Video from '../component/Video.jsx';
 import DailyVideoList from '../component/DailyVideoList.jsx';
 import browserStorage from 'browser-storage';
+import PropTypes from 'prop-types';
 
 class VideoDiario extends Component {
+	static propTypes = {
+		aspectRatio: PropTypes.number.isRequired,
+	};
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -45,10 +50,12 @@ class VideoDiario extends Component {
 		return (
 			<>
 				<DailyVideoList
+					aspectRatio={this.props.aspectRatio}
 					allDailyVideoList={this.state.allDailyVideoList}
 					setDailyVideo={this.setDailyVideo}
 				/>
 				<Video
+					aspectRatio={this.props.aspectRatio}
 					idLibrary={this.state.idLibrary}
 					title={this.state.title}
 					idVideo={this.state.idVideo}
