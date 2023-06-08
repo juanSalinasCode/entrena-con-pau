@@ -1,6 +1,8 @@
 import { React, Component } from 'react';
+import { Button } from 'react-bootstrap';
 import styles from './Welcome.module.css';
 import PropTypes from 'prop-types';
+import browserStorage from 'browser-storage';
 
 class Welcome extends Component {
 	static propTypes = {
@@ -18,10 +20,15 @@ class Welcome extends Component {
 		email: '',
 		password: '',
 		errors: [],
+		subscriptionId: '',
+		userLogged: null,
 	};
 
 	componentDidMount() {
 		this.updateClass(this.props.aspectRatio);
+		this.associateSubscriptionToUser().then(() => {
+			this.checkTokenAndLoadUserData();
+		});
 	}
 
 	componentDidUpdate(prevProps) {
@@ -38,6 +45,7 @@ class Welcome extends Component {
 				classText: styles.text_h,
 				classDivModal: styles.divModal_h,
 				classDivModalBackground: styles.divModalBackground_h,
+				classButtonPrimary: styles.buttonPrimary_h,
 			});
 		} else {
 			this.setState({
@@ -46,9 +54,54 @@ class Welcome extends Component {
 				classText: styles.text_v,
 				classDivModal: styles.divModal_v,
 				classDivModalBackground: styles.divModalBackground_v,
+				classButtonPrimary: styles.buttonPrimary_v,
 			});
 		}
 	}
+
+	associateSubscriptionToUser = async () => {
+		const urlParams = new URLSearchParams(window.location.search);
+		const subscriptionIdParam = urlParams.get('preapproval_id');
+		await this.setState({ subscriptionId: subscriptionIdParam });
+		const token = browserStorage.getItem('jwtToken');
+		const { subscriptionId } = this.state;
+		return fetch('/user/update-subscription', {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+			},
+			body: JSON.stringify({ subscriptionId }),
+		});
+	};
+
+	checkTokenAndLoadUserData = async () => {
+		const token = browserStorage.getItem('jwtToken');
+
+		return fetch('/user/profile', {
+			method: 'GET',
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		})
+			.then(res => {
+				if (res.status === 200) {
+					return res.json(); // Parse the response body as JSON
+				}
+				throw new Error('Invalid response');
+			})
+			.then(data => {
+				this.setState({
+					userLogged: data,
+				});
+			})
+			.catch(error => {
+				console.error(error);
+				this.setState({
+					userLogged: null,
+				});
+			});
+	};
 
 	render() {
 		return (
@@ -67,12 +120,35 @@ class Welcome extends Component {
 				></div>
 				<div className={this.state.classDivModal}>
 					<p className={this.state.classTitle}>#EntrenaConPau</p>
-					<p className={this.state.classText}>
-						Bienvenid@! tu suscripción se realizo con exito, en el dia de hoy
-						te enviaremos un correo con un link de acceso y tu contraseña para
-						ingresar, espero que disfrutes de la app, no dudes en consultar
-						cualquier duda!
-					</p>
+					{this.state.userLogged?.subscriptionData?.status === 'authorized' ? (
+						<>
+							<p className={this.state.classText}>
+								Bienvenid@! tu suscripción se realizo con exito y fue
+								asociada a tu usuario, espero que disfrutes de la app, no
+								dudes en consultar cualquier duda a nuestro correo
+								entrenaconpau@gmail.com o al +54 9 11 5318-5532
+							</p>
+							<div className={styles.divButton}>
+								<Button
+									className={this.state.classButtonPrimary}
+									onClick={() => {
+										window.location.href = '/';
+									}}
+								>
+									<div>Home</div>
+								</Button>
+							</div>
+						</>
+					) : (
+						<>
+							<p className={this.state.classText}>
+								Bienvenid@! tu suscripción se realizo con exito comunicate
+								a nuestro correo entrenaconpau@gmail.com o al +54 9 11
+								5318-5532
+							</p>
+							<div className={styles.divButton}></div>
+						</>
+					)}
 				</div>
 			</div>
 		);

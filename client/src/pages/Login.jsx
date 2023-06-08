@@ -20,10 +20,15 @@ class Login extends Component {
 		email: '',
 		password: '',
 		errors: [],
+		userLogged: null,
 	};
 
 	componentDidMount() {
 		this.updateClass(this.props.aspectRatio);
+		const urlParams = new URLSearchParams(window.location.search);
+		const emailParam = urlParams.get('email');
+		const passwordParam = urlParams.get('password');
+		this.setState({ email: emailParam, password: passwordParam });
 	}
 
 	componentDidUpdate(prevProps) {
@@ -78,10 +83,49 @@ class Login extends Component {
 		const data = await res.json();
 		if (res.status === 200) {
 			browserStorage.setItem('jwtToken', data.jwt);
-			window.location.href = '/';
+			this.checkUserSubscriptionState();
 		} else {
 			this.setState({ errors: data.errors });
 		}
+	};
+
+	checkUserSubscriptionState = async () => {
+		const token = browserStorage.getItem('jwtToken');
+		if (!token) {
+			this.setState({
+				userLogged: null,
+			});
+			return;
+		}
+
+		fetch('/user/profile', {
+			method: 'GET',
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		})
+			.then(res => {
+				if (res.status === 200) {
+					return res.json(); // Parse the response body as JSON
+				}
+				throw new Error('Invalid response');
+			})
+			.then(data => {
+				this.setState({
+					userLogged: data,
+				});
+				if (data?.subscriptionData?.status === 'authorized') {
+					window.location.href = '/';
+				} else {
+					window.location.href = '/register';
+				}
+			})
+			.catch(error => {
+				console.error(error);
+				this.setState({
+					userLogged: null,
+				});
+			});
 	};
 
 	render() {
