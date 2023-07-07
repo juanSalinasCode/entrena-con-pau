@@ -1,10 +1,13 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
+import { Nav, NavDropdown, Navbar } from 'react-bootstrap';
 import { Outlet, Link } from 'react-router-dom';
 import styles from './NavComp.module.css';
 import PropTypes from 'prop-types';
+import browserStorage from 'browser-storage';
+
+// Importa el icono "grid-fill" de React Bootstrap
+import { GridFill } from 'react-bootstrap-icons';
 
 class NavComp extends React.Component {
 	static propTypes = {
@@ -15,10 +18,47 @@ class NavComp extends React.Component {
 	state = {
 		classNavbarTitle: null,
 		classLink: null,
+		classStart: null,
+		userLogged: null,
 	};
 
 	componentDidMount() {
 		this.updateClass(this.props.aspectRatio);
+		this.checkTokenAndLoadUserData();
+	}
+
+	checkTokenAndLoadUserData() {
+		const token = browserStorage.getItem('jwtToken');
+		if (!token) {
+			this.setState({
+				userLogged: null,
+			});
+			return;
+		}
+
+		fetch('/user/profile', {
+			method: 'GET',
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		})
+			.then(res => {
+				if (res.status === 200) {
+					return res.json(); // Parse the response body as JSON
+				}
+				throw new Error('Invalid response');
+			})
+			.then(data => {
+				this.setState({
+					userLogged: data,
+				});
+			})
+			.catch(error => {
+				console.error(error);
+				this.setState({
+					userLogged: null,
+				});
+			});
 	}
 
 	componentDidUpdate(prevProps) {
@@ -33,11 +73,13 @@ class NavComp extends React.Component {
 			this.setState({
 				classNavbarTitle: styles.navbarTitle_h,
 				classLink: styles.link_h,
+				classStart: styles.start_h,
 			});
 		} else {
 			this.setState({
 				classNavbarTitle: styles.navbarTitle_v,
 				classLink: styles.link_v,
+				classStart: styles.start_v,
 			});
 		}
 	}
@@ -52,20 +94,66 @@ class NavComp extends React.Component {
 						<Navbar.Brand href='/'>
 							<p className={this.state.classNavbarTitle}>#EntrenaConPau</p>
 						</Navbar.Brand>
-						{/* Botón para desplegar opciones de navegación */}
-						<Navbar.Toggle aria-controls='basic-navbar-nav' />
-						<Navbar.Collapse id='basic-navbar-nav'>
-							<Nav className='me-auto'>
-								{/* Opción para ir a la página de clases */}
-								<Nav.Link as={Link} to='/'>
-									<p className={this.state.classLink}>clases</p>
-								</Nav.Link>
-								{/* Opción para ir a la página de video diario */}
-								<Nav.Link as={Link} to='/video-diario'>
-									<p className={this.state.classLink}>video diario</p>
-								</Nav.Link>
-							</Nav>
-						</Navbar.Collapse>
+						<Nav className='me-auto'>
+							{this.props.aspectRatio >= 1.1 ? (
+								<>
+									{/* Opción para ir a la página de clases */}
+									<Nav.Link as={Link} to='/'>
+										<p className={this.state.classLink}>clases</p>
+									</Nav.Link>
+									{/* Opción para ir a la página de video diario */}
+									<Nav.Link as={Link} to='/video-diario'>
+										<p className={this.state.classLink}>
+											video diario
+										</p>
+									</Nav.Link>
+									{/* Boton para comenzar, sea iniciar sección o registrarse */}
+									{!this.state.userLogged ? (
+										<Nav.Link as={Link} to='/login'>
+											<p className={this.state.classStart}>
+												comenzar
+											</p>
+										</Nav.Link>
+									) : (
+										<></>
+									)}
+								</>
+							) : (
+								<NavDropdown
+									title={
+										<GridFill
+											className={
+												!this.state.userLogged
+													? styles.classMoreOptionsLogo
+													: null
+											}
+										/>
+									} // Reemplaza el logotipo por el icono "grid-fill"
+									id='collasible-nav-dropdown'
+								>
+									{/* Opción para ir a la página de clases */}
+									<Nav.Link as={Link} to='/'>
+										<p className={this.state.classLink}>clases</p>
+									</Nav.Link>
+									{/* Opción para ir a la página de video diario */}
+									<Nav.Link as={Link} to='/video-diario'>
+										<p className={this.state.classLink}>
+											video diario
+										</p>
+									</Nav.Link>
+									{/* Boton para comenzar, sea iniciar sección o registrarse */}
+									{!this.state.userLogged ? (
+										<Nav.Link as={Link} to='/login'>
+											<p className={this.state.classStart}>
+												comenzar
+											</p>
+										</Nav.Link>
+									) : (
+										<></>
+									)}
+								</NavDropdown>
+							)}
+						</Nav>
 					</Container>
 				</Navbar>
 

@@ -43,3 +43,52 @@
 	align-items: center;
 	text-align: center;
 }
+
+.start_h {
+	font-family: Public Sans !important;
+	font-size: 1.6vw;
+	margin-top: auto;
+	margin-bottom: auto;
+	font-style: normal;
+	display: flex;
+	align-items: center;
+	text-align: center;
+	position: absolute;
+	right: 10vw;
+	background-color: #ffd5df;
+	color: white;
+	padding: 0.5vw 1vw;
+	border-radius: 2vw;
+	transform: translateY(-10%);
+  }
+  
+  .start_v {
+	font-family: Public Sans;
+	font-size: 2.4vh;
+	margin-top: auto;
+	margin-bottom: auto;
+	font-style: normal;
+	display: flex;
+	align-items: center;
+	text-align: center;
+	background-color: #ffd5df;
+	color: white;
+	padding: 1vh 2vh;
+	border-radius: 4vh;
+	transform: translateY(-10%);
+  }
+  
+  .classMoreOptionsLogo {
+	color: #ff69b4; /* Color rosa */
+	font-size: 24px; /* Tamaño de fuente personalizado */
+	animation: logoclassMoreOptionsLogoAnimation 1s alternate infinite; /* Animación de iluminación y desiluminación */
+  }
+  
+  @keyframes logoclassMoreOptionsLogoAnimation {
+	from {
+	  color: #fc4ea5; /* Color rosa inicial */
+	}
+	to {
+	  color: #ffdcee; /* Color rosa más oscuro */
+	}
+  }
