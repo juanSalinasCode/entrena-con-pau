@@ -4,28 +4,50 @@ import styles from './Register.module.css';
 import PropTypes from 'prop-types';
 import browserStorage from 'browser-storage';
 import { v4 as uuidv4 } from 'uuid';
+import GoToMercadoPagoModal from '../component/GoToMercadoPagoModal.jsx';
 
 class Register extends Component {
 	static propTypes = {
 		aspectRatio: PropTypes.number.isRequired,
 	};
 
-	state = {
-		imageUrl: '',
-		classTitle: null,
-		classText: null,
-		classDivModal: null,
-		classDivModalBackground: null,
-		classButtonPrimary: null,
-		classButtonSecondary: null,
-		userLogged: null,
-		name: '',
-		email: '',
-		confirmEmail: '',
-		password: '',
-		confirmPassword: '',
-		errors: [],
-	};
+	constructor(props) {
+		super(props);
+		this.state = {
+			imageUrl: '',
+			classTitle: null,
+			classText: null,
+			classDivModal: null,
+			classDivModalBackground: null,
+			classButtonPrimary: null,
+			classButtonSecondary: null,
+			classInputLogin: null,
+			userLogged: null,
+			name: '',
+			email: '',
+			confirmEmail: '',
+			password: '',
+			confirmPassword: '',
+			errors: [],
+			showGoToMercadoPagoModal: false,
+		};
+		this.handleShowGoToMercadoPagoModal =
+			this.handleShowGoToMercadoPagoModal.bind(this);
+		this.handleCloseGoToMercadoPagoModal =
+			this.handleCloseGoToMercadoPagoModal.bind(this);
+	}
+
+	handleShowGoToMercadoPagoModal() {
+		this.setState({
+			showGoToMercadoPagoModal: true,
+		});
+	}
+
+	handleCloseGoToMercadoPagoModal() {
+		this.setState({
+			showGoToMercadoPagoModal: false,
+		});
+	}
 
 	componentDidMount() {
 		this.updateClass(this.props.aspectRatio);
@@ -195,143 +217,151 @@ class Register extends Component {
 
 	render() {
 		return (
-			<div
-				style={{
-					backgroundImage: `url(${this.state.imageUrl})`,
-				}}
-				className={styles.divBackground}
-			>
+			<>
+				<GoToMercadoPagoModal
+					handleShowGoToMercadoPagoModal={this.handleShowGoToMercadoPagoModal}
+					handleCloseGoToMercadoPagoModal={this.handleCloseGoToMercadoPagoModal}
+					showGoToMercadoPagoModal={this.state.showGoToMercadoPagoModal}
+				></GoToMercadoPagoModal>
 				<div
-					className={
-						this.state.classDivModal +
-						' ' +
-						this.state.classDivModalBackground
-					}
-				></div>
-				<div className={this.state.classDivModal}>
-					<p className={this.state.classTitle}>#EntrenaConPau</p>
-					{!this.state.userLogged ? (
-						<>
-							<input
-								className={this.state.classInputLogin}
-								onChange={this.handleName}
-								value={this.state.name}
-								placeholder='Nombre'
-							/>
-							<input
-								className={this.state.classInputLogin}
-								onChange={this.handleEmail}
-								value={this.state.email}
-								placeholder='Email'
-							/>
-							<input
-								className={this.state.classInputLogin}
-								onChange={this.handleConfirmEmail}
-								value={this.state.confirmEmail}
-								placeholder='Confirmar Email'
-							/>
-							<input
-								className={this.state.classInputLogin}
-								onChange={this.handlePassword}
-								value={this.state.password}
-								placeholder='Contraseña entre 8 y 25 caracteres, con números, mayusculas y minusculas'
-							/>
-							<input
-								className={this.state.classInputLogin}
-								onChange={this.handleConfirmPassword}
-								value={this.state.confirmPassword}
-								placeholder='Confirmar Contraseña'
-							/>
-						</>
-					) : (
-						<>
-							{!this.state.userLogged?.subscriptionData?.status ? (
-								<p className={this.state.classText}>
-									Que bueno que te haya interesado la plataforma! Tu
-									usuario fue creado con éxito, solo falta que actives
-									tu suscripción para comenzar la prueba gratuita.
-									Puedes consultarnos cualquier cosa a nuestro correo
-									entrenaconpau@gmail.com o al +54 9 11 5318-5532
-								</p>
-							) : (
-								<>
-									{this.state.userLogged?.subscriptionData?.status ===
-									'authorized' ? (
-										<p className={this.state.classText}>
-											Ya tienes una suscripción activa. Puedes
-											consultarnos cualquier cosa a nuestro correo
-											entrenaconpau@gmail.com o al +54 9 11
-											5318-5532
-										</p>
-									) : (
-										<p className={this.state.classText}>
-											Tu suscripción ya no se encuentra activa.
-											Puedes escribirnos para reactivarla o
-											cualquier cosa a nuestro correo
-											entrenaconpau@gmail.com o al +54 9 11
-											5318-5532
-										</p>
-									)}
-								</>
-							)}
-						</>
-					)}
-					<div className={styles.divButton}>
-						<Button
-							hidden={this.state.userLogged?.subscriptionData?.status}
-							className={this.state.classButtonSecondary}
-							onClick={() => {
-								window.location.href = '/login';
-							}}
-						>
-							<div>Login</div>
-						</Button>
-						{!this.state.userLogged && (
-							<Button
-								className={this.state.classButtonPrimary}
-								onClick={this.handleRegister}
-							>
-								<div>Registrarse</div>
-							</Button>
+					style={{
+						backgroundImage: `url(${this.state.imageUrl})`,
+					}}
+					className={styles.divBackground}
+				>
+					<div
+						className={
+							this.state.classDivModal +
+							' ' +
+							this.state.classDivModalBackground
+						}
+					></div>
+					<div className={this.state.classDivModal}>
+						<p className={this.state.classTitle}>#EntrenaConPau</p>
+						{!this.state.userLogged ? (
+							<>
+								<input
+									className={this.state.classInputLogin}
+									onChange={this.handleName}
+									value={this.state.name}
+									placeholder='Nombre'
+								/>
+								<input
+									className={this.state.classInputLogin}
+									onChange={this.handleEmail}
+									value={this.state.email}
+									placeholder='Email'
+								/>
+								<input
+									className={this.state.classInputLogin}
+									onChange={this.handleConfirmEmail}
+									value={this.state.confirmEmail}
+									placeholder='Confirmar Email'
+								/>
+								<input
+									className={this.state.classInputLogin}
+									onChange={this.handlePassword}
+									value={this.state.password}
+									placeholder='Contraseña entre 8 y 25 caracteres, con números, mayusculas y minusculas'
+								/>
+								<input
+									className={this.state.classInputLogin}
+									onChange={this.handleConfirmPassword}
+									value={this.state.confirmPassword}
+									placeholder='Confirmar Contraseña'
+								/>
+							</>
+						) : (
+							<>
+								{!this.state.userLogged?.subscriptionData?.status ? (
+									<p className={this.state.classText}>
+										Que bueno que te haya interesado la plataforma!
+										Solo Falta un Paso para activar tu prueba
+										gratuita.
+									</p>
+								) : (
+									<>
+										{this.state.userLogged?.subscriptionData
+											?.status === 'authorized' ? (
+											<p className={this.state.classText}>
+												Ya tienes una suscripción activa. Puedes
+												consultarnos cualquier cosa a nuestro
+												correo entrenaconpau@gmail.com o al +54 9
+												11 5318-5532
+											</p>
+										) : (
+											<p className={this.state.classText}>
+												Tu suscripción ya no se encuentra activa.
+												Puedes escribirnos para reactivarla o
+												cualquier cosa a nuestro correo
+												entrenaconpau@gmail.com o al +54 9 11
+												5318-5532
+											</p>
+										)}
+									</>
+								)}
+							</>
 						)}
-						{this.state.userLogged &&
-							!this.state.userLogged?.subscriptionData?.status && (
+						<div className={styles.divButton}>
+							<Button
+								hidden={this.state.userLogged?.subscriptionData?.status}
+								className={this.state.classButtonSecondary}
+								onClick={() => {
+									window.location.href = '/login';
+								}}
+							>
+								<div>Login</div>
+							</Button>
+							{!this.state.userLogged && (
+								<Button
+									className={this.state.classButtonPrimary}
+									onClick={this.handleRegister}
+								>
+									<div>Registrarse</div>
+								</Button>
+							)}
+							{this.state.userLogged &&
+								!this.state.userLogged?.subscriptionData?.status && (
+									<Button
+										className={this.state.classButtonPrimary}
+										onClick={() =>
+											this.handleShowGoToMercadoPagoModal()
+										}
+										// onClick={() => {
+										// 	window.location.href =
+										// 		'https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=2c93808487562016018757c82f270099';
+										// }}
+									>
+										<div>Comenzar</div>
+									</Button>
+								)}
+							{this.state.userLogged?.subscriptionData?.status ===
+								'authorized' && (
 								<Button
 									className={this.state.classButtonPrimary}
 									onClick={() => {
-										window.location.href =
-											'https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=2c93808487562016018757c82f270099';
+										window.location.href = '/';
 									}}
 								>
-									<div>Comenzar</div>
+									<div>Home</div>
 								</Button>
 							)}
-						{this.state.userLogged?.subscriptionData?.status ===
-							'authorized' && (
-							<Button
-								className={this.state.classButtonPrimary}
-								onClick={() => {
-									window.location.href = '/';
-								}}
-							>
-								<div>Home</div>
-							</Button>
-						)}
+						</div>
 					</div>
+					{this.state.errors.length > 0 && (
+						<Alert
+							variant='danger'
+							onClose={() => this.setState({ errors: [] })}
+							dismissible
+							className={this.state.classDivModal}
+						>
+							{this.state.errors.map((error, index) => (
+								<p key={index}>{error}</p>
+							))}
+						</Alert>
+					)}
 				</div>
-				{this.state.errors.length > 0 && (
-					<Alert
-						variant='danger'
-						onClose={() => this.setState({ errors: [] })}
-						dismissible
-						className={this.state.classDivModal}
-					>
-						{this.state.errors.map((error, index) => (
-							<p key={index}>{error}</p>
-						))}
-					</Alert>
-				)}
-			</div>
+			</>
 		);
 	}
 }

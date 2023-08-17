@@ -4,6 +4,7 @@ import Register from '../pages/Register.jsx';
 import Welcome from '../pages/Welcome.jsx';
 import VideoClase from '../pages/VideoClase.jsx';
 import VideoDiario from '../pages/VideoDiario.jsx';
+import Profile from '../pages/Profile.jsx';
 import Home from '../pages/Home.jsx';
 import NavComp from '../component/NavComp.jsx';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
@@ -34,6 +35,10 @@ function RoutesComponent() {
 			<Routes>
 				<Route path='/' element={<NavComp aspectRatio={aspectRatio} />}>
 					<Route index element={<Home aspectRatio={aspectRatio} />} />
+					<Route
+						path='/profile'
+						element={<Profile aspectRatio={aspectRatio} />}
+					/>
 					<Route
 						path='/video-clase'
 						element={<VideoClase aspectRatio={aspectRatio} />}
