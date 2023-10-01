@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import VideoPrueba from '../pages/VideoPrueba.jsx';
 import Login from '../pages/Login.jsx';
 import Register from '../pages/Register.jsx';
 import Welcome from '../pages/Welcome.jsx';
+import Stripe from '../pages/Stripe.jsx';
 import VideoClase from '../pages/VideoClase.jsx';
 import VideoDiario from '../pages/VideoDiario.jsx';
 import Profile from '../pages/Profile.jsx';
@@ -55,6 +57,11 @@ function RoutesComponent() {
 					element={<Register aspectRatio={aspectRatio} />}
 				/>
 				<Route path='/welcome' element={<Welcome aspectRatio={aspectRatio} />} />
+				<Route path='/stripe' element={<Stripe aspectRatio={aspectRatio} />} />
+				<Route
+					path='/video-prueba'
+					element={<VideoPrueba aspectRatio={aspectRatio} />}
+				/>
 			</Routes>
 		</BrowserRouter>
 	);
