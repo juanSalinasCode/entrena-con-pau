@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import VideoPrueba from '../pages/VideoPrueba.jsx';
+import VideoPrueba2 from '../pages/VideoPrueba2.jsx';
 import Login from '../pages/Login.jsx';
 import Register from '../pages/Register.jsx';
 import Welcome from '../pages/Welcome.jsx';
@@ -61,6 +62,10 @@ function RoutesComponent() {
 				<Route
 					path='/video-prueba'
 					element={<VideoPrueba aspectRatio={aspectRatio} />}
+				/>
+				<Route
+					path='/video-prueba2'
+					element={<VideoPrueba2 aspectRatio={aspectRatio} />}
 				/>
 			</Routes>
 		</BrowserRouter>
